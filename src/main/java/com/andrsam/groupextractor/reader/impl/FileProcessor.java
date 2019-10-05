@@ -11,11 +11,11 @@ import java.util.Map;
 
 public class FileProcessor implements IFileProcessor {
     @Override
-    public Map<String, List<String>> read(File file) throws IOException {
+    public Map<String, List<String>> read(Reader reader) throws IOException {
         Map<String, List<String>> map = new HashMap<>();
         IParser parser = new Parser();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(reader)) {
             String line;
             while ((line = br.readLine()) != null) {
                 parser.parse(line, map);

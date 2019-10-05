@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
@@ -28,7 +29,7 @@ public class GroupExtractor {
         Instant start = Instant.now();
         Map<String, List<String>> map = new HashMap<>();
         try {
-            map = fileProcessor.read(file);
+            map = fileProcessor.read(new FileReader(file));
             fileProcessor.writeMap(map, DST_FILENAME);
         } catch (IOException e) {
             e.printStackTrace();
