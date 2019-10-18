@@ -30,6 +30,10 @@ public class FileProcessorTest {
             "\"83552471951\";\"100000395408945\";\"200000858070199\"",
             "\"83384681155\";\"100000854416515\";\"200000670938412\"" };
 
+    private static final String[] SIMPLE_CASE = new String[]{"1;2;3", "3;4;5", "5;6;7"};
+
+
+
     private FileProcessor fileProcessor = new FileProcessor();
 
     @Test
@@ -41,8 +45,14 @@ public class FileProcessorTest {
 
     @Test
     public void readNoDuplicates() throws IOException {
-        Map<String, List<String>> map = fileProcessor.read(new StringReader(arrayToString(STR_NO_DUPLICATES)));
+        Map<String, List<String>> map = fileProcessor.read(new StringReader(arrayToString(STR_DUPLICATES)));
         assertTrue(map.isEmpty());
+    }
+
+    @Test
+    public void readSimpleTest() throws IOException {
+        Map<String, List<String>> map = fileProcessor.read(new StringReader(arrayToString(SIMPLE_CASE)));
+        System.out.println(map.toString());
     }
 
     private String arrayToString(String[] arr) {
