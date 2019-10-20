@@ -2,19 +2,19 @@ package com.andrsam.groupextractor.parser.impl;
 
 import com.andrsam.groupextractor.parser.IParser;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Parser implements IParser {
     @Override
-    public Map<String, List<String>> parse(String source, Map<String, List<String>> sourceMap) {
+    public Map<String, Set<String>> parse(String source, Map<String, Set<String>> sourceMap) {
         String[] values = source.split(";");
         for (String value : values) {
             if (!value.equals("\"\"")) {
-                List<String> list = sourceMap.containsKey(value) ? sourceMap.get(value) : new ArrayList<>();
-                list.add(source);
-                sourceMap.put(value, list);
+                Set<String> set = sourceMap.containsKey(value) ? sourceMap.get(value) : new HashSet<>();
+                set.add(source);
+                sourceMap.put(value, set);
             }
         }
         return sourceMap;
