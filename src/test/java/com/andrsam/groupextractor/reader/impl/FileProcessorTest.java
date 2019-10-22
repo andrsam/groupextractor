@@ -5,8 +5,8 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
@@ -38,20 +38,20 @@ public class FileProcessorTest {
 
     @Test
     public void readDuplicates() throws IOException {
-        Map<String, List<String>> map = fileProcessor.read(new StringReader(arrayToString(STR_DUPLICATES)));
+        Map<String, Set<String>> map = fileProcessor.read(new StringReader(arrayToString(STR_DUPLICATES)));
         assertFalse(map.isEmpty());
         assertEquals(3, map.get("\"83178111069\"").size());
     }
 
     @Test
     public void readNoDuplicates() throws IOException {
-        Map<String, List<String>> map = fileProcessor.read(new StringReader(arrayToString(STR_DUPLICATES)));
+        Map<String, Set<String>> map = fileProcessor.read(new StringReader(arrayToString(STR_DUPLICATES)));
         assertTrue(map.isEmpty());
     }
 
     @Test
     public void readSimpleTest() throws IOException {
-        Map<String, List<String>> map = fileProcessor.read(new StringReader(arrayToString(SIMPLE_CASE)));
+        Map<String, Set<String>> map = fileProcessor.read(new StringReader(arrayToString(SIMPLE_CASE)));
         System.out.println(map.toString());
     }
 
