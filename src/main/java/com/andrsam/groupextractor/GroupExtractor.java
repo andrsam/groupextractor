@@ -11,9 +11,9 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class GroupExtractor {
     private static final String SRC_FILENAME = "lng.csv";
@@ -27,7 +27,7 @@ public class GroupExtractor {
         FileProcessor fileProcessor = new FileProcessor();
         LOG.info("start processing file...");
         Instant start = Instant.now();
-        Map<String, List<String>> map = new HashMap<>();
+        Map<String, Set<String>> map = new HashMap<>();
         try {
             map = fileProcessor.read(new FileReader(file));
             fileProcessor.writeMap(map, DST_FILENAME);
