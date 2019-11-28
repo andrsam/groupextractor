@@ -12,21 +12,23 @@ public class FileProcessor implements IFileProcessor {
 
     @Override
     public Map<String, Set<String>> read(Reader reader) throws IOException {
-        Map<String, Set<String>> map = new TreeMap<>();
+        ;
         IParser parser = new Parser();
-        parseFile(reader, map, parser);
+        Map<String, Set<String>> map = parseFile(reader, parser);
         map.entrySet().removeIf(entry -> entry.getValue().size() == 1);
         processIntersections(map);
         return map;
     }
 
-    private void parseFile(Reader reader, Map<String, Set<String>> map, IParser parser) throws IOException {
+    private Map<String, Set<String>> parseFile(Reader reader, IParser parser) throws IOException {
+        Map<String, Set<String>> map = new TreeMap<>();
         try (BufferedReader br = new BufferedReader(reader)) {
             String line;
             while ((line = br.readLine()) != null) {
                 parser.parse(line, map);
             }
         }
+        return map;
     }
 
     private void processIntersections(Map<String, Set<String>> map) {
