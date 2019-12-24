@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Parser implements IParser {
     @Override
-    public Map<String, Set<String>> parse(String source, Map<String, Set<String>> sourceMap) {
+    public void parse(String source, Map<String, Set<String>> sourceMap) {
         String[] values = source.split(";");
         for (String value : values) {
             if (!value.equals("\"\"")) {
@@ -17,6 +17,5 @@ public class Parser implements IParser {
                 sourceMap.put(value, set);
             }
         }
-        return sourceMap;
     }
 }

@@ -12,7 +12,6 @@ public class FileProcessor implements IFileProcessor {
 
     @Override
     public Map<String, Set<String>> read(Reader reader) throws IOException {
-        ;
         IParser parser = new Parser();
         Map<String, Set<String>> map = parseFile(reader, parser);
         map.entrySet().removeIf(entry -> entry.getValue().size() == 1);
@@ -36,10 +35,10 @@ public class FileProcessor implements IFileProcessor {
 
         List<String> keysToMerge = new ArrayList<>();
         while (!stack.isEmpty()) {
-            String key = stack.pop();
-            keysToMerge.add(key);
+            String srcKey = stack.pop();
+            keysToMerge.add(srcKey);
             stack.stream()
-                    .filter(dstKey -> isKeyContainsInValue(map, key, dstKey))
+                    .filter(dstKey -> isKeyContainsInValue(map, srcKey, dstKey))
                     .collect(Collectors.toCollection(() -> keysToMerge));
             keysToMerge.forEach(stack::remove);
             mergeKeys(map, keysToMerge);
@@ -48,12 +47,12 @@ public class FileProcessor implements IFileProcessor {
 
     private boolean isKeyContainsInValue(Map<String, Set<String>> map, String srcKey, String dstKey) {
         Set<String> intersection = new HashSet<>(map.get(dstKey));
-        boolean mapContainsKey = map.containsKey(srcKey);
-        if (mapContainsKey) {
+        boolean isMapContainsKey = map.containsKey(srcKey);
+        if (isMapContainsKey) {
             intersection.retainAll(map.get(srcKey));
         }
 
-        return mapContainsKey && !intersection.isEmpty();
+        return isMapContainsKey && !intersection.isEmpty();
     }
 
     private void mergeKeys(Map<String, Set<String>> map, List<String> keysToRemove) {
